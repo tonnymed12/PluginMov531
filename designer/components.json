@@ -1,0 +1,15 @@
+{
+	"components": [
+		{
+			"id": "zpluginscrap",
+			"type": "VIEW_PLUGIN",
+			"allowMultipleInstances": true,
+			"name": "serviacero.custom.plugins.zpluginscrap",
+			"propertyEditor": "serviacero.custom.plugins.zpluginscrap.builder.PropertyEditor",
+			"i18n": "serviacero.custom.plugins.zpluginscrap.i18n.i18n",
+            "productionProcessEnabled": true,
+           "productionProcessTitle": "zpluginscrap",
+			"supportedPodTypes": ["OPERATION","WORK_CENTER","ORDER","OTHER","MONITOR"]
+		}   
+	]
+}
