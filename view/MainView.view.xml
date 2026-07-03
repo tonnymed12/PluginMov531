@@ -1,37 +1,103 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:html="http://www.w3.org/1999/xhtml" controllerName="serviacero.custom.plugins.zpluginscrap.controller.MainView" width="100%" height="100%">
-		
-        <Panel 
-                id="panelPlugin"  
-                width="100%"
-                height="100%"
-                expandable="false"
-                expanded="false"
-                accessibleRole="Region"
-                backgroundDesign="Transparent"
-                class="sapUiNoContentPadding">  
-        <headerToolbar>
-            <Toolbar height="3rem">
-                <Button
-                    id="backButton"
-                    visible="false"
-                    text="{i18n>template.back.btn}"
-                    tooltip="{i18n>template.back.tooltip}"
-                    icon="sap-icon://nav-back"
-                    press="onBackPress"/>
-                <Title id="headerTitle" text=""/>
-                <ToolbarSpacer/>
-                <Button
-                    id="closeButton"
-                    visible="false"
-                    tooltip="{i18n>template.close.tooltip}"
-                    icon="sap-icon://decline"
-                    press="onClosePress"/>
-            </Toolbar>
-        </headerToolbar>
-        <content> 
-            <Text id="textPlugin" text="template" class="textFontSize" textAlign="Center" width="100%"/>
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:f="sap.ui.layout.form"
+    xmlns:core="sap.ui.core"
+    xmlns:html="http://www.w3.org/1999/xhtml"
+    xmlns:ndc="sap.ndc"
+    xmlns:filterbar="sap.ui.comp.filterbar" 
+    controllerName="serviacero.custom.plugins.zpluginscrap.controller.MainView" width="100%" height="100%">
+
+    <Panel id="panelPlugin001" width="100%" height="100%" expandable="false" expanded="true" accessibleRole="Region" backgroundDesign="Transparent">
+        <content>
+            <VBox id="vBoxSaldos" visible="true">
+                <l:Grid defaultSpan="L12 M12 S12" width="auto" id="gridSaldos" class="sapUiNoMarginBottom">
+                    <l:content>
+                        <Table id="tableBatchesSaldos" width="95%" growing="false" ariaLabelledBy="title" fixedLayout="false" autoPopinMode="true" items="{
+                                path: 'items>/'
+                            }" mode="MultiSelect" sticky="ColumnHeaders,HeaderToolbar" popinLayout="GridSmall">
+                            <headerToolbar>
+                                <OverflowToolbar class="sapMTBStandard_0">
+                                    <ToolbarSpacer />
+                                    <Button text="{i18n>buttonExecute}" type="Critical" icon="sap-icon://pull-down" tooltip="{i18n>buttonExecute}" visible="true" press="executeProcess" />
+                                </OverflowToolbar>
+                            </headerToolbar>
+                            <noData>
+                                <IllustratedMessage />
+                            </noData>
+                            <columns>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelOrder}" />
+                                </Column>
+
+                                <Column visible="false" width="0px" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelMaterial}" />
+                                </Column>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelMaterial}" />
+                                </Column>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelMaterialD}" />
+                                </Column>
+                                <Column visible="false" width="0px" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="erpSequence" />
+                                </Column>
+                                <Column visible="false" width="0px" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="operationActivity" />
+                                </Column>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelQuantityBom}" />
+                                </Column>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelQuantity}" />
+                                </Column>
+                                <Column visible="false" width="0px" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="sujeto_lote" />
+                                </Column>
+                                <Column visible="true" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="U.M." />
+                                </Column>
+                                <Column visible="false" width="0px" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="sfc" />
+                                </Column>
+                                <Column visible="false" minScreenWidth="Tablet" demandPopin="true">
+                                    <Label text="{i18n>labelCuantoE}" />
+                                </Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{items>order}" />
+                                        <Text text="{items>material}" />
+                                        <Text text="{items>material_dm}" />
+                                        <Text text="{items>m_desc}" />
+                                        <Text text="{items>erpSequence}" />
+                                        <Text text="{items>operationActivity}" />
+                                        <!--<Text text="{items>quantity}" />-->
+                                        <Text text="{items>quantity_bom}"/>
+                                        <Input value="{items>quantity}" type="Text" textAlign="End" liveChange="onQuantityChange">
+                                            <customData>
+                                                <core:CustomData key="targetProperty" value="quantity" />
+                                            </customData>
+                                        </Input>
+                                        <Text text="{items>sujeto_lote}" />
+                                        <Text text="{items>unitOfMeasure}" />
+                                        <Text text="{items>sfc}" />
+                                        <Input value="{items>cuantos_etiqueta}" type="Text" textAlign="End" liveChange="onQuantityChange" visible="{= ${items>sujeto_lote} === 'X' }">
+                                            <customData>
+                                                <core:CustomData key="targetProperty" value="cuantos_etiqueta" />
+                                            </customData>
+                                        </Input>
+
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </l:content>
+                </l:Grid>
+            </VBox>
         </content>
-	    </Panel>		
-        
-  
+    </Panel>
+
+
 </mvc:View>
